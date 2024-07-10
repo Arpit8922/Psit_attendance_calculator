@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Attendance Calculator 📝</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        @media screen and (max-width: 600px) {
+            #container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>PSIT Attendance Calculator 📝</h1>
+        <form id="attendanceForm">
+            <label for="totalLectures">Total Lectures:</label>
+            <input type="number" id="totalLectures" name="totalLectures" required>
+            <label for="totalAbsent">Total Absent:</label>
+            <input type="number" id="totalAbsent" name="totalAbsent" required>
+            <label for="totalDelegation">Total Delegation:</label>
+            <input type="number" id="totalDelegation" name="totalDelegation" required>
+            <input type="submit" value="Calculate My Attendance">
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <footer>
+        Attendance Calculator &copy; 2021-24 | Arpit Sachan ❤️ 
+    </footer>
+
+    <script>
+        document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var totalLectures = parseInt(document.getElementById('totalLectures').value);
+            var totalAbsent = parseInt(document.getElementById('totalAbsent').value);
+            var totalDelegation = parseInt(document.getElementById('totalDelegation').value);
+
+            var percentage = 100 - (((totalAbsent - totalDelegation) / totalLectures) * 100);
+            var resultElement = document.getElementById('result');
+            resultElement.innerText = "📊 Attendance Percentage: " + percentage.toFixed(2) + "%";
+
+            // Display emojis based on attendance percentage
+            var emoji;
+            if (percentage < 50) {
+                emoji = "😞"; // Sad face
+            } else if (percentage >= 50 && percentage < 80) {
+                emoji = "😐"; // Neutral face
+            } else {
+                emoji = "😊"; // Happy face
+            }
+            resultElement.innerHTML += "<br>" + emoji;
+        });
+    </script>
+</body>
+</html>
